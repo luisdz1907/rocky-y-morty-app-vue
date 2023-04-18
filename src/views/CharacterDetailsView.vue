@@ -39,7 +39,7 @@ const modalEpisode = (id: string) => {
                     <ul class="list-epi mt-4">
                         <li v-for="(item, index) in characterDetail?.episode">
                             <a data-bs-toggle="modal" data-bs-target="#modalEpisode"
-                                @click="modalEpisode(item.slice(-1))"><span class="badge bg-success p-2">Episodio {{ index +
+                                @click="modalEpisode(item.slice(-1))"><span class="badge bg-success p-2">Episode {{ index +
                                     1
                                 }}</span>
                             </a>
