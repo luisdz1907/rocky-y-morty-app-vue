@@ -2,16 +2,21 @@
 import { ref } from 'vue';
 import { getSingleCharacter } from '@/services/CharacterData';
 import { useRoute, RouterLink } from 'vue-router';
+import EpisodeModal from '@/components/EpisodeModal.vue';
 import type { CharacterModel } from '../models/CharacterModel';
 
 const router = useRoute()
 const { id }: any = router.params
 const characterDetail = ref<CharacterModel>()
+const idEpisode = ref<any>(null)
+
 getSingleCharacter(id).then((_resp: CharacterModel) => {
     characterDetail.value = _resp
 })
 
-
+const modalEpisode = (id: string) => {
+    idEpisode.value = id
+}
 </script>
 <template>
     <div class="container">
@@ -33,12 +38,15 @@ getSingleCharacter(id).then((_resp: CharacterModel) => {
 
                     <ul class="list-epi mt-4">
                         <li v-for="(item, index) in characterDetail?.episode">
-                            <RouterLink :to="{ path: `episode/${item.slice(-1)}` }"><span
-                                    class="badge bg-success p-2">Episodio {{ index + 1 }}</span>
-                            </RouterLink>
+                            <a data-bs-toggle="modal" data-bs-target="#modalEpisode"
+                                @click="modalEpisode(item.slice(-1))"><span class="badge bg-success p-2">Episodio {{ index +
+                                    1
+                                }}</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
+                <EpisodeModal :idEpisode="idEpisode" :idModal="'modalEpisode'"></EpisodeModal>
 
             </div>
         </div>
@@ -52,6 +60,9 @@ p {
     margin: 0px;
 }
 
+a {
+    cursor: pointer;
+}
 
 .container {
     margin-top: 130px;
@@ -101,17 +112,18 @@ p {
 }
 
 .img-character {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        gap: 10px;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
 
 @media only screen and (max-width: 1000px) {
     .container {
         margin-top: 50px;
     }
+
     .img-character img {
         width: 200px;
     }
