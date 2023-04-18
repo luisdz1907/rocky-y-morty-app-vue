@@ -37,16 +37,19 @@ provide('selectedTitle', selectedTitle)
 
 .tabs-item {
     flex: 1;
-    background-color: #eee;
+    border-bottom: 2.2px solid gold;
+    color: white;
     padding: 5px 0;
     border-radius: 5px 5px 0 0;
     transition: .4s all ease-out;
     cursor: pointer;
     user-select: none;
     text-align: center;
+    font-size: 20px;
 }
 
 .tabs-item.selected {
-    background-color: #bfbfbf;
+    background-color: gold;
+    color: black;
 }
 </style>
