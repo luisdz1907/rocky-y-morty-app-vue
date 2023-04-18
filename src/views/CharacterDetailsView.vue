@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { getSingleCharacter } from '@/services/CharacterData';
-import { useRoute } from 'vue-router';
+import { useRoute, RouterLink } from 'vue-router';
 import type { CharacterModel } from '../models/CharacterModel';
 
 const router = useRoute()
@@ -9,7 +9,6 @@ const { id }: any = router.params
 const characterDetail = ref<CharacterModel>()
 getSingleCharacter(id).then((_resp: CharacterModel) => {
     characterDetail.value = _resp
-    console.log(_resp)
 })
 
 
@@ -19,6 +18,7 @@ getSingleCharacter(id).then((_resp: CharacterModel) => {
         <div class="row">
             <div class="col-lg-3 col-md-12 img-character">
                 <img class="" :src="characterDetail?.image" alt="">
+                <RouterLink to="/" class="text-center text-decoration-none fs-5 text-white">Go back</RouterLink>
             </div>
             <div class="col-lg-9 col-md-12">
                 <div class="d-flex flex-column mx-4">
@@ -33,7 +33,8 @@ getSingleCharacter(id).then((_resp: CharacterModel) => {
 
                     <ul class="list-epi mt-4">
                         <li v-for="(item, index) in characterDetail?.episode">
-                            <RouterLink :to="item"><span class="badge bg-success p-2">Episodio {{ index + 1 }}</span>
+                            <RouterLink :to="{ path: `episode/${item.slice(-1)}` }"><span
+                                    class="badge bg-success p-2">Episodio {{ index + 1 }}</span>
                             </RouterLink>
                         </li>
                     </ul>
@@ -51,6 +52,7 @@ p {
     margin: 0px;
 }
 
+
 .container {
     margin-top: 130px;
 }
@@ -59,7 +61,7 @@ p {
 .img-character img {
     border-radius: 100%;
     box-shadow: 0px 1px 2px #2B3044,
-    0px 4px 16px #2B3044;
+        0px 4px 16px #2B3044;
 }
 
 
@@ -76,7 +78,6 @@ p {
 }
 
 .list-epi li a {
-    text-decoration: none;
     border: none;
     color: white;
     padding: 5px 10px;
@@ -93,28 +94,36 @@ p {
 .bg-danger {
     background-color: #D21312 !important;
 }
+
+.bg-success:hover {
+    background-color: gold !important;
+    color: black;
+}
+
+.img-character {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+    }
+
 @media only screen and (max-width: 1000px) {
     .container {
         margin-top: 50px;
     }
-
-    .img-character {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
     .img-character img {
         width: 200px;
     }
-    .info-character{
+
+    .info-character {
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .list-epi{
+
+    .list-epi {
         justify-content: center;
     }
 }
-
 </style>
