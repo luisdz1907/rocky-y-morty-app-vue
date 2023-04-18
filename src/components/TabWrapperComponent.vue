@@ -6,7 +6,7 @@ const props = defineProps({
 // @ts-ignore: Object is possibly 'null'.
 const tabTitles = ref(props.titles.map((item: any) => item))
 
-const selectedTitle = ref(tabTitles.value)
+const selectedTitle = ref('All')
 provide('selectedTitle', selectedTitle)
 </script>
 <template>
@@ -25,7 +25,6 @@ provide('selectedTitle', selectedTitle)
 
 
 <style scoped>
-
 
 .tabs-header {
     list-style: none;

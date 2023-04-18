@@ -20,6 +20,5 @@ const selectedTitle = inject('selectedTitle')
     place-items: center;
     border-radius: 0 0 5px 5px;
     padding: 10px;
-    background-color: blue;
 }
 </style>
