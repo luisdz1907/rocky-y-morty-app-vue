@@ -52,7 +52,7 @@ const handleSearch = () => {
 
 <template>
     <header class="p-4">
-        <h1>Rick y Morty</h1>
+        <h1>Rocky y Morty</h1>
     </header>
 
     <div>
