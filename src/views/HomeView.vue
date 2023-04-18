@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { ResponseCharacterModel } from '@/models/ResponseCharacterModel.js';
 import { getAllCharacter, getFilterCharacter } from '@/services/CharacterData';
 import TabWrapperComponent from '@/components/TabWrapperComponent.vue';
 import TabItem from '@/components/TabItem.vue';
 import CharacterItem from '@/components/CharacterItem.vue';
+import type { CharacterModel } from '../models/CharacterModel';
 
 
-const listCharacter = ref<any[]>([])
-const listCharacterFilter = ref<any[]>([])
-const listCharacterAlive = ref<any[]>([])
-const listCharacterDead = ref<any[]>([])
-const listCharacterMale = ref<any[]>([])
-const listCharacterFemale = ref<any[]>([])
+const listCharacter = ref<CharacterModel[]>([])
+const listCharacterFilter = ref<CharacterModel[]>([])
+const listCharacterAlive = ref<CharacterModel[]>([])
+const listCharacterDead = ref<CharacterModel[]>([])
+const listCharacterMale = ref<CharacterModel[]>([])
+const listCharacterFemale = ref<CharacterModel[]>([])
 const searchInput = ref('')
-const dataOptions: any = [
+const dataOptions: string[] = [
     'All',
     'Alive',
     'Dead',
@@ -24,21 +24,21 @@ const dataOptions: any = [
 
 
 
-getAllCharacter().then((_resp: ResponseCharacterModel) => {
-    listCharacter.value = _resp.results
+getAllCharacter().then((_resp: CharacterModel[]) => {
+    listCharacter.value = _resp
 })
 
-getFilterCharacter('status', 'alive').then((_resp: ResponseCharacterModel) => {
-    listCharacterAlive.value = _resp.results
+getFilterCharacter('status', 'alive').then((_resp: CharacterModel[]) => {
+    listCharacterAlive.value = _resp
 })
-getFilterCharacter('status', 'dead').then((_resp: ResponseCharacterModel) => {
-    listCharacterDead.value = _resp.results
+getFilterCharacter('status', 'dead').then((_resp: CharacterModel[]) => {
+    listCharacterDead.value = _resp
 })
-getFilterCharacter('gender', 'female').then((_resp: ResponseCharacterModel) => {
-    listCharacterFemale.value = _resp.results
+getFilterCharacter('gender', 'female').then((_resp: CharacterModel[]) => {
+    listCharacterFemale.value = _resp
 })
-getFilterCharacter('gender', 'male').then((_resp: ResponseCharacterModel) => {
-    listCharacterMale.value = _resp.results
+getFilterCharacter('gender', 'male').then((_resp: CharacterModel[]) => {
+    listCharacterMale.value = _resp
 })
 
 const handleSearch = () => {

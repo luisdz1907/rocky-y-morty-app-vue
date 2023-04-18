@@ -1,13 +1,18 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { RouterLink } from 'vue-router';
 
-const favorites = ref<any[]>([])
-const props = defineProps({
-    listCharacter: ref<any>([])
-})
+import type { CharacterModel } from '../models/CharacterModel';
 
-const toggleFavorite = (item: any) => {
+interface Props{
+    listCharacter: CharacterModel[]
+}
+
+const props = defineProps<Props>()
+const favorites = ref<CharacterModel[]>([])
+
+const toggleFavorite = (item: CharacterModel) => {
     const index = favorites.value.indexOf(item);
     if (index === -1) {
         favorites.value.push(item);
@@ -16,17 +21,19 @@ const toggleFavorite = (item: any) => {
     }
 }
 
-const isFavorite = (item: any) => {
+const isFavorite = (item: CharacterModel) => {
     return favorites.value.indexOf(item) !== -1;
 }
 </script>
 <template>
     <div class="container-grid-character">
         <div class="row">
-            <div class="col-lg-4 col-xs-2 mt-4" v-for="(item, index) in props.listCharacter" :key="item">
+            <div class="col-lg-4 col-xs-2 mt-4" v-for="(item, index) in props.listCharacter" :key="item.id">
+            
                 <div class="card-character d-flex gap-1 cursor-pointer">
                     <div class="image-character">
                         <img :src="item.image" alt="">
+                        <RouterLink class="btn-view" :to="{ path: `/${item.id}`}">See detail</RouterLink>
                     </div>
                     <div class="info-character w-100 p-2 d-flex flex-column">
                         <div class="title d-flex justify-content-between">
@@ -48,6 +55,12 @@ const isFavorite = (item: any) => {
 </template>
 
 <style scoped>
+a{
+    text-decoration: none;
+    border: none;
+}
+
+
 .text-gray {
     color: rgb(158, 158, 158);
     font-weight: bold;
@@ -58,17 +71,31 @@ const isFavorite = (item: any) => {
 .text-light {
     color: white;
     font-weight: normal;
-    font-size: 16px;
+    font-size: 13px;
 }
-
+.image-character{
+    position: relative;
+}
 .image-character img {
-    width: 150px;
+    width: 165px;
     height: auto;
+}
+.btn-view{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 5px;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
 }
 
 .card-character {
     width: 100%;
-    height: 150px;
+    height: 165px;
     overflow: hidden;
     border-width: 1px;
     /* border-color: rgba(219, 234, 254, 1); */

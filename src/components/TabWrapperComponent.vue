@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, provide } from 'vue';
-const props = defineProps({
-    titles: []
-})
-// @ts-ignore: Object is possibly 'null'.
+interface Props {
+    titles: string[]
+}
+const props = defineProps<Props>()
 const tabTitles = ref(props.titles.map((item: any) => item))
 
 const selectedTitle = ref('All')
@@ -25,7 +25,6 @@ provide('selectedTitle', selectedTitle)
 
 
 <style scoped>
-
 .tabs-header {
     list-style: none;
     padding: 0;
