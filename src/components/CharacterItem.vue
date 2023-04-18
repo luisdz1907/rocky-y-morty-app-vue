@@ -10,7 +10,7 @@ const props = defineProps({
     <div class="container-grid-character">
         <div class="row">
             <div class="col-lg-4 mt-4" v-for="item in props.listCharacter">
-                <div class="card-character d-flex gap-1">
+                <div class="card-character d-flex gap-1 cursor-pointer">
                     <div class="image-character">
                         <img :src="item.image" alt="">
                     </div>
@@ -43,6 +43,7 @@ const props = defineProps({
     border-radius: 1rem;
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 .info-character {
